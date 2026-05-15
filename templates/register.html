@@ -1,10 +1,41 @@
 {% extends 'base.html' %} 
 {% block content %} 
-<h2>Register</h2> 
-<form method="POST"> 
+<h2>Create a New Account</h2> 
+<p>Please fill in the details below:</p> 
+
+<form method="POST" style="max-width: 400px; margin: auto; text-align: left;"> 
     {{ form.hidden_tag() }} 
-    <p>{{ form.email.label }}<br>{{ form.email() }}</p> 
-    <p>{{ form.password.label }}<br>{{ form.password() }}</p> 
-    {{ form.submit() }} 
+    
+    <div>
+        {{ form.email.label(style="font-weight: bold;") }}<br>
+        {{ form.email(class_="input-field", size=30, value="student@tup.edu.ph", style="width: 100%; padding: 8px;") }}
+        
+        <small style="color: gray; display: block; margin-top: 2px;">{{ form.email.description }}</small>
+        
+        {% if form.email.errors %}
+            <div style="color: #d9534f; font-size: 0.9em; margin-top: 5px;">
+                {% for error in form.email.errors %}
+                    <span>⚠ {{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ form.password.label(style="font-weight: bold;") }}<br>
+        {{ form.password(size=30, style="width: 100%; padding: 8px;") }}
+        
+        {% if form.password.errors %}
+            <div style="color: #d9534f; font-size: 0.9em; margin-top: 5px;">
+                {% for error in form.password.errors %}
+                    <span>⚠ {{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ form.submit(class_="btn btn-primary", style="width: 100%;") }}
+    </div> 
 </form> 
 {% endblock %}

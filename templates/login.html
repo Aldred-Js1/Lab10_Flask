@@ -1,10 +1,15 @@
 {% extends 'base.html' %} 
 {% block content %} 
 <h2>Login</h2> 
+    <!-- Add Placeholder Text in Login Form --> 
 <form method="POST"> 
     {{ form.hidden_tag() }} 
-    <p>{{ form.email.label }}<br>{{ form.email() }}</p> 
-    <p>{{ form.password.label }}<br>{{ form.password() }}</p> 
-    {{ form.submit() }} 
+    {{ form.email.label }} {{ 
+form.email(placeholder="Enter your email") }}<br> 
+    {{ form.password.label }} {{ 
+form.password(placeholder="Enter your password") 
+}}<br> 
+    <!-- Use Bootstrap Button Class --> 
+    {{ form.submit(class_="btn btn-primary") }} 
 </form> 
 {% endblock %}

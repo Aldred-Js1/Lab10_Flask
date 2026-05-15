@@ -3,3 +3,117 @@ body {
     background-color: #F8F8F8;
     font-family: Segoe UI;
 }
+
+/* Center the entire page content */
+.container {
+    max-width: 800px;
+    margin: 0 auto;       /* This centers the box on the screen */
+    text-align: center;   /* This centers the text and images inside */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the navigation links */
+nav {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Style the buttons (TUP Rust/Red color) */
+.btn {
+    background-color: #A94442;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #843534;
+}
+
+/* Make form inputs look clean */
+input {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+/* Change flash message to green */
+.flash-message {
+    color: #2ecc71; /* A nice professional green */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Polishing the Student List */
+.student-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.student-table th, .student-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.student-table th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Style the Delete link as a small button */
+.btn-delete {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.btn-delete:hover {
+    text-decoration: underline;
+}
+
+td {
+    max-width: 200px;         /* Limits how wide the cell can get */
+    overflow: hidden;         /* Hides the extra text */
+    text-overflow: ellipsis;  /* Adds "..." at the end of long text */
+    white-space: nowrap;      /* Keeps the email on one line */
+}
+/* Add Hover Effect to Nav Links */
+nav a:hover {
+    text-decoration: underline;
+    color: #FFA500; /* This is an Orange color */
+}
+/* In style.css */
+.input-field {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.input-field:focus {
+    border-color: #FFA500; /* Turns orange when you click it */
+    outline: none;
+}
+/* Add Form Padding with CSS */ 
+/* Temporary Test Rule */
+form div { 
+    margin-bottom: 120px !important; 
+}
