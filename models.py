@@ -17,3 +17,12 @@ class Student(db.Model):
     
     def __repr__(self): 
         return f'<Student {self.full_name}>'
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+    
+    # These MUST exist for your app.py logic to work:
+    role = db.Column(db.String(50), default='viewer') 
+    profile_pic = db.Column(db.String(200), default='default.png')

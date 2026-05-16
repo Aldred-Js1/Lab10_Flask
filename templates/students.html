@@ -3,20 +3,27 @@
 {% block content %} 
 <h2>Student Management</h2> 
 
-<div style="margin-bottom: 30px;">
-    <form method="POST" action="{{ url_for('add_student') }}"> 
-        <input type="text" name="name" placeholder="Full Name" required> 
-        <input type="email" name="email" placeholder="Email" required> 
-        <button type="submit" class="btn">Add Student</button> 
-    </form> 
-</div>
+<p>Total Students: {{ students|length }}</p>
+
+{% if current_user.role == 'admin' %}
+    <div style="margin-bottom: 30px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+        <h3>Add New Student</h3>
+        <form action="{{ url_for('add_student') }}" method="POST"> 
+            <input type="text" name="name" placeholder="Full Name" required> 
+            <input type="email" name="email" placeholder="Email" required> 
+            <button type="submit" class="btn">Add Student</button> 
+        </form> 
+    </div>
+{% endif %}
 
 <table class="student-table">
     <thead>
         <tr>
             <th>Full Name</th>
             <th>Email Address</th>
-            <th>Action</th>
+            {% if current_user.role == 'admin' %}
+                <th>Action</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -24,12 +31,14 @@
         <tr>
             <td><strong>{{ student.full_name }}</strong></td>
             <td>{{ student.email }}</td>
-            <td>
-                <a href="{{ url_for('delete_student', id=student.id) }}" class="btn-delete">Delete</a>
-            </td>
+            {% if current_user.role == 'admin' %}
+                <td>
+                    <a href="{{ url_for('delete_student', id=student.id) }}" class="btn-delete">Delete</a>
+                </td>
+            {% endif %}
         </tr>
     {% endfor %}
-</tbody>
-<!-- Display Student Count in Students Page --> 
-<p>Total Students: {{ students|length }}</p>
+    </tbody>
+</table>
+
 {% endblock %}

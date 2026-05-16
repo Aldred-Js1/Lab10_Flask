@@ -17,6 +17,13 @@ app.config['SECRET_KEY'] = 'my-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'app.db') 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
+# Near your other app.config settings
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
+# Create the folder automatically if it doesn't exist
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+
 # Step 5: Initialize database and login manager 
 db.init_app(app) 
 login_manager = LoginManager(app) 
@@ -54,7 +61,7 @@ def register():
             return redirect(url_for('register'))
 
         hashed_pw = generate_password_hash(form.password.data) 
-        user = User(email=form.email.data, password=hashed_pw) 
+        user = User(email=form.email.data, password=hashed_pw)  
         db.session.add(user) 
         db.session.commit() 
         flash("Registration successful!") 
@@ -112,6 +119,11 @@ def add_student():
 @app.route('/delete-student/<int:id>') 
 @login_required 
 def delete_student(id): 
+    # Add this Role Check
+    if current_user.role != 'admin':
+        flash("Access Denied: Only Admins can delete records.")
+        return redirect(url_for('students'))
+
     student = Student.query.get_or_404(id) 
     db.session.delete(student) 
     db.session.commit() 
@@ -121,6 +133,27 @@ def delete_student(id):
 @app.errorhandler(404) 
 def page_not_found(e): 
     return render_template('404.html'), 404
+
+
+from werkzeug.utils import secure_filename # Add this import at the top of app.py
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'POST':
+        # Check if a file was uploaded
+        file = request.files.get('profile_pic')
+        if file and file.filename != '':
+            # Secure the filename and save the file
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            # Update the database for the logged-in user
+            current_user.profile_pic = filename
+            db.session.commit()
+            flash("Profile updated successfully!")
+            
+    return render_template('profile.html')
 
 # Step 9: Run application
 if __name__ == '__main__': 

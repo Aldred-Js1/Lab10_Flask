@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 500px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <h2>User Profile</h2>
+    <hr>
+    
+    <div style="margin-bottom: 20px;">
+        <img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) }}" 
+             alt="Profile Picture" 
+             style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #A94442;">
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div style="margin-bottom: 15px; text-align: left;">
+            <label style="font-weight: bold;">Update Profile Picture:</label><br>
+            <input type="file" name="profile_pic" accept=".jpg,.png,.jpeg" style="margin-top: 5px;">
+        </div>
+        
+        <button type="submit" class="btn" style="width: 100%;">Save Changes</button>
+    </form>
+</div>
+
+<img src="{{ url_for('static', filename='uploads/' + current_user.profile_pic) if current_user.profile_pic else url_for('static', filename='images/default-user.png') }}" 
+     alt="Profile Picture" 
+     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #A94442;">
+{% endblock %}
